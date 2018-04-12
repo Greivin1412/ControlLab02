@@ -42,6 +42,7 @@ public class ListActivity extends AppCompatActivity {
                 //finish();
             }
         });
+        
 
 
         listView = (ListView)findViewById(R.id.list);
