@@ -1,5 +1,6 @@
 package com.example.greivin.controllab02;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,8 +9,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import com.example.greivin.controllab02.model.Movimiento;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class ListActivity extends AppCompatActivity {
+
+
+    ListView listView;
+    ListAdapter adapter;
+    ArrayList<Movimiento> movimientos= new ArrayList<Movimiento>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,15 +30,35 @@ public class ListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                Intent intent = new Intent(getApplicationContext(),ListAddActivity.class);
+                intent.putExtra("lista",movimientos);
+                startActivity(intent);
+                //finish();
             }
         });
+
+
+        listView = (ListView)findViewById(R.id.list);
+
+
+       Bundle objeto = getIntent().getExtras();
+
+       if(objeto!=null){
+          movimientos = (ArrayList) objeto.getSerializable("mov");
+       }
+
+        adapter = new ListAdapter(movimientos,getApplicationContext());
+        listView.setAdapter(adapter);
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
