@@ -50,11 +50,13 @@ public class ListActivity extends AppCompatActivity {
 
        if(objeto!=null){
           movimientos = (ArrayList) objeto.getSerializable("mov");
-           System.out.println(movimientos.get(0).getCategoria().getDescripcion());
        }
 
         adapter = new ListAdapter(movimientos,getApplicationContext());
+       if(movimientos != null){
         listView.setAdapter(adapter);
+       }
+
     }
 
 
@@ -80,10 +82,6 @@ public class ListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        System.exit(1);
-    }
+
 
 }

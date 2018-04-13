@@ -53,7 +53,7 @@ public class ListAdapter extends ArrayAdapter<Movimiento> implements View.OnClic
     if(dataModel.getCategoria().getTipoGasto()==0) {
         categoria.setImageResource(android.R.drawable.presence_online);
     }else{
-        categoria.setImageResource(android.R.drawable.presence_offline);
+        categoria.setImageResource(R.drawable.red);
     }
         descripcion.setText(dataSet.get(position).getDescripcion());
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
