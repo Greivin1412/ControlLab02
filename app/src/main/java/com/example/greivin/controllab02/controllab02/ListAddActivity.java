@@ -1,4 +1,4 @@
-package com.example.greivin.controllab02;
+package com.example.greivin.controllab02.controllab02;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.example.greivin.controllab02.R;
 import com.example.greivin.controllab02.model.Categoria;
 import com.example.greivin.controllab02.model.Movimiento;
 import java.util.ArrayList;
@@ -53,37 +56,52 @@ public class ListAddActivity extends AppCompatActivity {
     public void guardar(View view) {
         fecha = (EditText) findViewById(R.id.fechaTxt);
         descripcion = (EditText) findViewById(R.id.descripcionTxt);
-        Movimiento movimiento = new Movimiento(1,descripcion.getText().toString(),new Date(fecha.getText().toString()),new Categoria(1,0,"Salario"));
-        lista.add(movimiento);
-        Intent intent = new Intent(getApplicationContext(),ListActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("mov",lista);
-        intent.putExtras(bundle);
-        startActivity(intent);
-        finish();
+
+        if(fecha.getText().toString().equals("") || descripcion.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(),"Existen Espacios Vacios",Toast.LENGTH_SHORT).show();
+        }else {
+
+            Movimiento movimiento = new Movimiento(1, descripcion.getText().toString(), new Date(fecha.getText().toString()), (Categoria) sItems.getSelectedItem());
+            lista.add(movimiento);
+            Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("mov", lista);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void radioClick(View view) {
-        //Spinner sItems = (Spinner) findViewById(R.id.movimiento);
+       // sItems = (Spinner) findViewById(R.id.comboCategorias);
         boolean marcado = ((RadioButton) view).isChecked();
 
         switch (view.getId()){
             case R.id.radioIngreso:
                 if(marcado){
                     sItems.setAdapter(adapterIngreso);
-                    //llenar combo con los de Ingreso
                 }
                 break;
 
             case R.id.radioGasto:
                 if(marcado){
                     sItems.setAdapter(adapterEgreso);
-                    //llenar combo con los de Salida
                 }
                 break;
 
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(),ListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("mov",lista);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
     }
 }

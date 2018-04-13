@@ -49,8 +49,11 @@ public class ListAdapter extends ArrayAdapter<Movimiento> implements View.OnClic
         TextView fecha = (TextView)convertView.findViewById(R.id.listFecha);
         ImageButton boton = (ImageButton)convertView.findViewById(R.id.listBoton);
 
-
+    if(dataModel.getCategoria().getTipoGasto()==0) {
         categoria.setImageResource(android.R.drawable.presence_online);
+    }else{
+        categoria.setImageResource(android.R.drawable.presence_offline);
+    }
         descripcion.setText(dataSet.get(position).getDescripcion());
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
         String fech = formato.format(dataSet.get(position).getFecha());
@@ -71,9 +74,7 @@ public class ListAdapter extends ArrayAdapter<Movimiento> implements View.OnClic
         switch (view.getId()){
             case R.id.listBoton:
                 //Eliminar del boton
-                Snackbar.make(view,"Eliminar "+dataModel.getDescripcion(),Snackbar.LENGTH_LONG).setAction("no action",null).show();
-                //Remove a elemento de la lista
-
+                dataSet.remove(position);// Remove a elemento de la lista
                 break;
         }
     }

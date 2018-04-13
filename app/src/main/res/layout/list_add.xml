@@ -35,14 +35,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:text="Ingreso" />
+            android:text="Ingreso"
+            android:onClick="radioClick"/>
 
         <RadioButton
             android:id="@+id/radioGasto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Gasto" />
+            android:text="Gasto"
+            android:onClick="radioClick"/>
 
 
     </RadioGroup>

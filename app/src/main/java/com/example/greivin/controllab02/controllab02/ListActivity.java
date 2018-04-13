@@ -1,9 +1,8 @@
-package com.example.greivin.controllab02;
+package com.example.greivin.controllab02.controllab02;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,10 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.example.greivin.controllab02.ListAdapter;
+import com.example.greivin.controllab02.R;
 import com.example.greivin.controllab02.model.Movimiento;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -39,10 +39,10 @@ public class ListActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),ListAddActivity.class);
                 intent.putExtra("lista",movimientos);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
-        
+
 
 
         listView = (ListView)findViewById(R.id.list);
@@ -52,6 +52,7 @@ public class ListActivity extends AppCompatActivity {
 
        if(objeto!=null){
           movimientos = (ArrayList) objeto.getSerializable("mov");
+           System.out.println(movimientos.get(0).getCategoria().getDescripcion());
        }
 
         adapter = new ListAdapter(movimientos,getApplicationContext());
@@ -82,4 +83,11 @@ public class ListActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.exit(1);
+    }
+
 }
