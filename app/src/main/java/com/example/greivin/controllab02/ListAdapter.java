@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.greivin.controllab02.model.Movimiento;
 
@@ -75,6 +76,8 @@ public class ListAdapter extends ArrayAdapter<Movimiento> implements View.OnClic
             case R.id.listBoton:
                 //Eliminar del boton
                 dataSet.remove(position);// Remove a elemento de la lista
+                this.notifyDataSetChanged();
+                Toast.makeText(mContext,"Elemento Eliminado",Toast.LENGTH_SHORT).show();
                 break;
         }
     }

@@ -43,8 +43,6 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-
-
         listView = (ListView)findViewById(R.id.list);
 
 
@@ -57,8 +55,6 @@ public class ListActivity extends AppCompatActivity {
 
         adapter = new ListAdapter(movimientos,getApplicationContext());
         listView.setAdapter(adapter);
-
-
     }
 
 
