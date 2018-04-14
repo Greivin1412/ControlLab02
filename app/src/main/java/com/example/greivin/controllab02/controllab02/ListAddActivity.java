@@ -28,7 +28,7 @@ public class ListAddActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        System.out.println("OnCreate de ADDActivity");
         categoriaIngreso.add(new Categoria(1,0,"Salario"));
         categoriaIngreso.add(new Categoria(2,0,"Alquiler"));
         categoriaEgreso.add(new Categoria(3,1,"Alimentos"));

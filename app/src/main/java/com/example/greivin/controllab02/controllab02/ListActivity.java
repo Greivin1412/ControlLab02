@@ -21,10 +21,11 @@ public class ListActivity extends AppCompatActivity {
 
     ListView listView;
     ListAdapter adapter;
-    ArrayList<Movimiento> movimientos= new ArrayList<Movimiento>();
+    ArrayList<Movimiento> movimientos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("OnCreate de ListActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -44,18 +45,20 @@ public class ListActivity extends AppCompatActivity {
         });
 
         listView = (ListView)findViewById(R.id.list);
-
+        movimientos= new ArrayList<Movimiento>();
 
        Bundle objeto = getIntent().getExtras();
 
        if(objeto!=null){
           movimientos = (ArrayList) objeto.getSerializable("mov");
+          if(movimientos==null){
+              movimientos=new ArrayList<Movimiento>();
+          }
        }
 
         adapter = new ListAdapter(movimientos,getApplicationContext());
-       if(movimientos != null){
         listView.setAdapter(adapter);
-       }
+
 
     }
 
