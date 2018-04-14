@@ -1,10 +1,12 @@
 package com.example.greivin.controllab02.controllab02;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -13,7 +15,11 @@ import android.widget.Toast;
 import com.example.greivin.controllab02.R;
 import com.example.greivin.controllab02.model.Categoria;
 import com.example.greivin.controllab02.model.Movimiento;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +31,7 @@ public class ListAddActivity extends AppCompatActivity {
     EditText fecha,descripcion;
     Spinner sItems;
     ArrayAdapter<Categoria> adapterIngreso,adapterEgreso;
+    int dia,mes,ano;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,15 @@ public class ListAddActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Existen Espacios Vacios",Toast.LENGTH_SHORT).show();
         }else {
 
-            Movimiento movimiento = new Movimiento(1, descripcion.getText().toString(), new Date(fecha.getText().toString()), (Categoria) sItems.getSelectedItem());
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+            Date convertedDate = new Date();
+            try {
+                convertedDate = formato.parse(fecha.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            
+            Movimiento movimiento = new Movimiento(1, descripcion.getText().toString(), convertedDate, (Categoria) sItems.getSelectedItem());
             lista.add(movimiento);
             Intent intent = new Intent(getApplicationContext(), ListActivity.class);
             Bundle bundle = new Bundle();
@@ -103,5 +118,23 @@ public class ListAddActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
+    }
+
+    public void calendario(View view) {
+
+        fecha = (EditText)findViewById(R.id.fechaTxt);
+
+        final Calendar calendar = Calendar.getInstance();
+        dia= calendar.get(Calendar.DAY_OF_MONTH);
+        mes= calendar.get(Calendar.MONTH);
+        ano= calendar.get(Calendar.YEAR);
+        DatePickerDialog picker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                fecha.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
+            }
+        }
+                ,ano,mes,dia);
+        picker.show();
     }
 }

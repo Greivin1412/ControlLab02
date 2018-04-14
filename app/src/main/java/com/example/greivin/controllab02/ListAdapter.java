@@ -56,7 +56,7 @@ public class ListAdapter extends ArrayAdapter<Movimiento> implements View.OnClic
         categoria.setImageResource(R.drawable.red);
     }
         descripcion.setText(dataSet.get(position).getDescripcion());
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fech = formato.format(dataSet.get(position).getFecha());
         fecha.setText(fech);//Aqui hay que hacerle un Format Day
         boton.setImageResource(android.R.drawable.ic_delete);
