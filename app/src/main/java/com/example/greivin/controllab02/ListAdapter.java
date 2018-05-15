@@ -1,6 +1,7 @@
 package com.example.greivin.controllab02;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,13 +44,13 @@ public class ListAdapter extends ArrayAdapter<Movimiento> implements View.OnClic
             convertView = vi.inflate(R.layout.list_item,null);
         }
 
-
+    //parent.setBackgroundColor(R.color.colorAccent);
         //Obtenemos las instancias de los elementos de la lista
         ImageView categoria = (ImageView)convertView.findViewById(R.id.listTipo);
         TextView descripcion = (TextView)convertView.findViewById(R.id.listDescripcion);
         TextView fecha = (TextView)convertView.findViewById(R.id.listFecha);
         ImageButton boton = (ImageButton)convertView.findViewById(R.id.listBoton);
-
+        parent.getChildAt(position).setBackgroundColor(Color.BLUE);
     if(dataModel.getCategoria().getTipoGasto()==0) {
         categoria.setImageResource(android.R.drawable.presence_online);
     }else{

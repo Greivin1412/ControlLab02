@@ -1,9 +1,13 @@
 package com.example.greivin.controllab02.model;
 
+import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.greivin.controllab02.contract.MovimientoContract;
+
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -12,24 +16,31 @@ import java.util.Date;
 
 public class Movimiento implements Serializable {
 
-    private long idMovimiento;
+    private long _id;
     private String descripcion;
     private Date fecha;
     private Categoria categoria;
 
-    public Movimiento(long idMovimiento, String descripcion, Date fecha, Categoria categoria) {
-        this.idMovimiento = idMovimiento;
+    public Movimiento(){
+        this._id=0;
+        this.descripcion="";
+        this.fecha = new Date();
+        this.categoria = null;
+    }
+
+    public Movimiento(long _id, String descripcion, Date fecha, Categoria categoria) {
+        this._id = _id;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.categoria = categoria;
     }
 
-    public long getIdMovimiento() {
-        return idMovimiento;
+    public long get_id() {
+        return _id;
     }
 
-    public void setIdMovimiento(long idMovimiento) {
-        this.idMovimiento = idMovimiento;
+    public void set_id(long _id) {
+        this._id = _id;
     }
 
     public String getDescripcion() {
@@ -56,40 +67,22 @@ public class Movimiento implements Serializable {
         this.categoria = categoria;
     }
 
+    public ContentValues toContentValues(){
+        ContentValues values = new ContentValues();
 
-    protected Movimiento(Parcel in) {
-        idMovimiento = in.readLong();
-        descripcion = in.readString();
-        long tmpFecha = in.readLong();
-        fecha = tmpFecha != -1 ? new Date(tmpFecha) : null;
-        categoria = (Categoria) in.readValue(Categoria.class.getClassLoader());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fecha);
+        int year = cal.get(Calendar.YEAR);
+        int mes = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        String fechaString = year+"-"+mes+"-"+day;
+
+        values.put(MovimientoContract.MovimientoEntry.CATEGORIA,categoria.getIdCategoria());
+        values.put(MovimientoContract.MovimientoEntry.DESCRIPCION,descripcion);
+        values.put(MovimientoContract.MovimientoEntry.FECHA,fechaString);
+
+        return values;
     }
 
- /*  @Override
-    public int describeContents() {
-        return 0;
-    }
 
-
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(idMovimiento);
-        dest.writeString(descripcion);
-        dest.writeLong(fecha != null ? fecha.getTime() : -1L);
-        dest.writeValue(categoria);
-    }*/
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Movimiento> CREATOR = new Parcelable.Creator<Movimiento>() {
-        @Override
-        public Movimiento createFromParcel(Parcel in) {
-            return new Movimiento(in);
-        }
-
-        @Override
-        public Movimiento[] newArray(int size) {
-            return new Movimiento[size];
-        }
-    };
 }

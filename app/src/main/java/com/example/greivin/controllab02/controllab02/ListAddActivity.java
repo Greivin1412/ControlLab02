@@ -75,7 +75,7 @@ public class ListAddActivity extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            
+
             Movimiento movimiento = new Movimiento(1, descripcion.getText().toString(), convertedDate, (Categoria) sItems.getSelectedItem());
             lista.add(movimiento);
             Intent intent = new Intent(getApplicationContext(), ListActivity.class);
