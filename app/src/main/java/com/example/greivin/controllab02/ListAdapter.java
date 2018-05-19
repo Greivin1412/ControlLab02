@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.greivin.controllab02.model.Movimiento;
+import com.example.greivin.controllab02.service.MovimientoService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,12 +51,12 @@ public class ListAdapter extends ArrayAdapter<Movimiento> implements View.OnClic
         TextView descripcion = (TextView)convertView.findViewById(R.id.listDescripcion);
         TextView fecha = (TextView)convertView.findViewById(R.id.listFecha);
         ImageButton boton = (ImageButton)convertView.findViewById(R.id.listBoton);
-        parent.getChildAt(position).setBackgroundColor(Color.BLUE);
-    if(dataModel.getCategoria().getTipoGasto()==0) {
+//        parent.getChildAt(position).setBackgroundColor(Color.BLUE);
+  /*  if(dataModel.getCategoria().getTipoGasto()==0) {
         categoria.setImageResource(android.R.drawable.presence_online);
     }else{
         categoria.setImageResource(R.drawable.red);
-    }
+    }*/
         descripcion.setText(dataSet.get(position).getDescripcion());
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fech = formato.format(dataSet.get(position).getFecha());
@@ -71,12 +72,14 @@ public class ListAdapter extends ArrayAdapter<Movimiento> implements View.OnClic
         //Elemento de la lista que se le dio click
         int position = (Integer)view.getTag();
         Object object = getItem(position); //tambien con el dataSet.getPosition(position)
-        Movimiento dataModel = (Movimiento)object;
+        Movimiento movimiento = (Movimiento)object;
 
         switch (view.getId()){
             case R.id.listBoton:
                 //Eliminar del boton
-                dataSet.remove(position);// Remove a elemento de la lista
+                MovimientoService movimientoService = new MovimientoService(mContext);
+                movimientoService.delete(String.valueOf(movimiento.get_id()));
+               dataSet.remove(position);// Remove a elemento de la lista
                 this.notifyDataSetChanged();
                 Toast.makeText(mContext,"Elemento Eliminado",Toast.LENGTH_SHORT).show();
                 break;

@@ -1,5 +1,9 @@
 package com.example.greivin.controllab02.model;
 
+import android.content.ContentValues;
+
+import com.example.greivin.controllab02.contract.CategoriaContract;
+
 import java.io.Serializable;
 
 /**
@@ -8,23 +12,29 @@ import java.io.Serializable;
 
 public class Categoria implements Serializable{
 
-    private long idCategoria;
+    private long _id;
+
+
     //0 = ingreso  1 = gasto
     private int tipoGasto;
     private String descripcion;
 
-    public Categoria(long idCategoria, int tipoGasto, String descripcion) {
-        this.idCategoria = idCategoria;
+    public Categoria(){
+
+    }
+
+    public Categoria(long _id, int tipoGasto, String descripcion) {
+        this._id = _id;
         this.tipoGasto = tipoGasto;
         this.descripcion = descripcion;
     }
 
-    public long getIdCategoria() {
-        return idCategoria;
+    public long get_id() {
+        return _id;
     }
 
-    public void setIdCategoria(long idCategoria) {
-        this.idCategoria = idCategoria;
+    public void set_id(long _id) {
+        this._id = _id;
     }
 
     public int getTipoGasto() {
@@ -46,5 +56,14 @@ public class Categoria implements Serializable{
     @Override
     public String toString() {
         return  descripcion;
+    }
+
+    public ContentValues toContentValues(){
+        ContentValues values = new ContentValues();
+
+        values.put(CategoriaContract.CategoriaEntry.TIPO_GASTO,tipoGasto);
+        values.put(CategoriaContract.CategoriaEntry.DESCRIPCION,descripcion);
+
+        return values;
     }
 }

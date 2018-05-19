@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.greivin.controllab02.R;
 import com.example.greivin.controllab02.model.Categoria;
 import com.example.greivin.controllab02.model.Movimiento;
+import com.example.greivin.controllab02.service.MovimientoService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,6 +69,7 @@ public class ListAddActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Existen Espacios Vacios",Toast.LENGTH_SHORT).show();
         }else {
 
+            MovimientoService movimientoService = new MovimientoService(getApplicationContext());
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
             Date convertedDate = new Date();
             try {
@@ -77,7 +79,7 @@ public class ListAddActivity extends AppCompatActivity {
             }
 
             Movimiento movimiento = new Movimiento(1, descripcion.getText().toString(), convertedDate, (Categoria) sItems.getSelectedItem());
-            lista.add(movimiento);
+            movimientoService.create(movimiento);
             Intent intent = new Intent(getApplicationContext(), ListActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("mov", lista);

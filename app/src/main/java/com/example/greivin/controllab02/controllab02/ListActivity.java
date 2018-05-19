@@ -12,7 +12,10 @@ import android.widget.ListView;
 
 import com.example.greivin.controllab02.ListAdapter;
 import com.example.greivin.controllab02.R;
+import com.example.greivin.controllab02.model.Categoria;
 import com.example.greivin.controllab02.model.Movimiento;
+import com.example.greivin.controllab02.service.CategoriaService;
+import com.example.greivin.controllab02.service.MovimientoService;
 
 import java.util.ArrayList;
 
@@ -21,7 +24,7 @@ public class ListActivity extends AppCompatActivity {
 
     ListView listView;
     ListAdapter adapter;
-    ArrayList<Movimiento> movimientos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,27 +41,30 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(),ListAddActivity.class);
-                intent.putExtra("lista",movimientos);
+              //  intent.putExtra("lista",movimientos);
                 startActivity(intent);
                 finish();
             }
         });
 
         listView = (ListView)findViewById(R.id.list);
-        movimientos= new ArrayList<Movimiento>();
+        MovimientoService movimientoService = new MovimientoService(this);
+        CategoriaService categoriaService = new CategoriaService(this);
+        final ArrayList  movimientos = (ArrayList)movimientoService.findAll();
+        adapter = new ListAdapter(movimientos,getApplicationContext());
+        listView.setAdapter(adapter);
 
-       Bundle objeto = getIntent().getExtras();
+
+
+
+      /* Bundle objeto = getIntent().getExtras();
 
        if(objeto!=null){
           movimientos = (ArrayList) objeto.getSerializable("mov");
           if(movimientos==null){
-              movimientos=new ArrayList<Movimiento>();
+              movimientos=(ArrayList)movimientoService.findAll();;
           }
-       }
-
-        adapter = new ListAdapter(movimientos,getApplicationContext());
-        listView.setAdapter(adapter);
-
+       }*/
 
     }
 
