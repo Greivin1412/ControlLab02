@@ -28,7 +28,6 @@ public class ListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("OnCreate de ListActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -49,7 +48,6 @@ public class ListActivity extends AppCompatActivity {
 
         listView = (ListView)findViewById(R.id.list);
         MovimientoService movimientoService = new MovimientoService(this);
-        CategoriaService categoriaService = new CategoriaService(this);
         final ArrayList  movimientos = (ArrayList)movimientoService.findAll();
         adapter = new ListAdapter(movimientos,getApplicationContext());
         listView.setAdapter(adapter);

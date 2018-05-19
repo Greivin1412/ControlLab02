@@ -52,11 +52,11 @@ public class ListAdapter extends ArrayAdapter<Movimiento> implements View.OnClic
         TextView fecha = (TextView)convertView.findViewById(R.id.listFecha);
         ImageButton boton = (ImageButton)convertView.findViewById(R.id.listBoton);
 //        parent.getChildAt(position).setBackgroundColor(Color.BLUE);
-  /*  if(dataModel.getCategoria().getTipoGasto()==0) {
+    if(dataModel.getCategoria().getTipoGasto()==0) {
         categoria.setImageResource(android.R.drawable.presence_online);
     }else{
         categoria.setImageResource(R.drawable.red);
-    }*/
+    }
         descripcion.setText(dataSet.get(position).getDescripcion());
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fech = formato.format(dataSet.get(position).getFecha());

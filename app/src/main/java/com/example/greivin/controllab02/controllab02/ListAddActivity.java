@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.greivin.controllab02.R;
 import com.example.greivin.controllab02.model.Categoria;
 import com.example.greivin.controllab02.model.Movimiento;
+import com.example.greivin.controllab02.service.CategoriaService;
 import com.example.greivin.controllab02.service.MovimientoService;
 
 import java.text.ParseException;
@@ -36,15 +37,24 @@ public class ListAddActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("OnCreate de ADDActivity");
-        categoriaIngreso.add(new Categoria(1,0,"Salario"));
-        categoriaIngreso.add(new Categoria(2,0,"Alquiler"));
-        categoriaEgreso.add(new Categoria(3,1,"Alimentos"));
-        categoriaEgreso.add(new Categoria(4,1,"Diversión"));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_add);
+        CategoriaService s = new CategoriaService(this);
+        s.create(new Categoria(1,0,"Salario"));
+        s.create(new Categoria(2,0,"Alquiler"));
+        s.create(new Categoria(3,1,"Alimentos"));
+        s.create(new Categoria(4,1,"Diversión"));
+        categoriaIngreso.add(s.getCategoriaBYID(1));
+        categoriaIngreso.add(s.getCategoriaBYID(2));
+        categoriaEgreso.add(s.getCategoriaBYID(3));
+        categoriaEgreso.add(s.getCategoriaBYID(4));
+       // categoriaIngreso.add(new Categoria(1,0,"Salario"));
+       // categoriaIngreso.add(new Categoria(2,0,"Alquiler"));
+        //categoriaEgreso.add(new Categoria(3,1,"Alimentos"));
+        //categoriaEgreso.add(new Categoria(4,1,"Diversión"));
 
-        lista = (ArrayList<Movimiento>)getIntent().getSerializableExtra("lista");
+
+       // lista = (ArrayList<Movimiento>)getIntent().getSerializableExtra("lista");
 
         adapterIngreso  = new ArrayAdapter<Categoria>(
                 this, android.R.layout.simple_spinner_item, categoriaIngreso);
@@ -81,9 +91,9 @@ public class ListAddActivity extends AppCompatActivity {
             Movimiento movimiento = new Movimiento(1, descripcion.getText().toString(), convertedDate, (Categoria) sItems.getSelectedItem());
             movimientoService.create(movimiento);
             Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("mov", lista);
-            intent.putExtras(bundle);
+          //  Bundle bundle = new Bundle();
+           // bundle.putSerializable("mov", lista);
+            //intent.putExtras(bundle);
             startActivity(intent);
             finish();
         }
@@ -115,9 +125,9 @@ public class ListAddActivity extends AppCompatActivity {
     public void onBackPressed(){
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(),ListActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("mov",lista);
-        intent.putExtras(bundle);
+      //  Bundle bundle = new Bundle();
+       // bundle.putSerializable("mov",lista);
+       // intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }

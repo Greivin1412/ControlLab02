@@ -76,7 +76,7 @@ public class Movimiento implements Serializable {
         int mes = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
         String fechaString = year+"-"+mes+"-"+day;
-
+        System.out.println("Metiendo el id = "+ categoria.get_id());
         values.put(MovimientoContract.MovimientoEntry.CATEGORIA,categoria.get_id());
         values.put(MovimientoContract.MovimientoEntry.DESCRIPCION,descripcion);
         values.put(MovimientoContract.MovimientoEntry.FECHA,fechaString);
