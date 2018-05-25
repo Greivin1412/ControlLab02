@@ -51,7 +51,7 @@ public class ListAdapter extends ArrayAdapter<Movimiento> implements View.OnClic
         TextView descripcion = (TextView)convertView.findViewById(R.id.listDescripcion);
         TextView fecha = (TextView)convertView.findViewById(R.id.listFecha);
         ImageButton boton = (ImageButton)convertView.findViewById(R.id.listBoton);
-//        parent.getChildAt(position).setBackgroundColor(Color.BLUE);
+
     if(dataModel.getCategoria().getTipoGasto()==0) {
         categoria.setImageResource(android.R.drawable.presence_online);
     }else{
